@@ -32,7 +32,7 @@ jqScrollBar<-function(inputId,  choices =choices, selected=null){
   print('ok')
   tagList(
     # singleton(tags$head(initResourcePaths())),
-      singleton(tags$head(tags$script(src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"))),
+      #singleton(tags$head(tags$script(src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"))),
       singleton(tags$head(tags$script(src = "jqScrollBar/jquery.scrolltabs.js"))),
       singleton(tags$head(tags$script(src = "jqScrollBar/jquery.mousewheel.js"))),
       singleton(tags$head(tags$script(src = "jqScrollBar/jqScrollBar.js"))),
