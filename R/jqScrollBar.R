@@ -14,22 +14,34 @@
 #' @export
 jqScrollBar<-function(inputId,  choices =choices, selected=null){
 # note: use toJSON for non-trivial initializations
-  txt=selected
-  if(!is.null(selected) && class(selected)=="character"){
-      txt=selected
-  }else if(
-        !is.null(selected) &&
-        class(selected)=="numeric" &&
-        selected>0 &&
-        selected<length(choices)
-  ){
-      txt=names(choices)[[selected]]
-  }
-  fn<-function(n,txt){span(rel=n,txt)}
-  value=toJSON(data.frame(text=txt, rel=choices[[txt]]))
+  if(length(choices)>0){
 
-  ll<-mapply(fn, choices, names(choices),SIMPLIFY = FALSE)
-  print('ok')
+    if(class(choices)=='character'){
+      choices<-mapply(function(i){paste0(i,"-rel")}, choices, SIMPLIFY = F, USE.NAMES = T)
+    }
+
+    if(!is.null(selected) && class(selected)=="character"){
+      selected=selected
+    }else if(
+      length(selected)==1 &&
+      class(selected)=="numeric" &&
+      selected>0 &&
+      selected<length(choices)
+    ){
+      selected=names(choices)[[selected]]
+    } else {
+      selected=names(choices)[1]
+    }
+
+    value=toJSON(data.frame(text=selected, rel=choices[[selected]]))
+
+    fn<-function(n,txt){span(rel=n,txt)}
+    ll<-mapply(fn, choices, names(choices),SIMPLIFY = FALSE)
+  } else {
+    ll<-null
+    selected=" "
+  }
+
   tagList(
     # singleton(tags$head(initResourcePaths())),
       #singleton(tags$head(tags$script(src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"))),

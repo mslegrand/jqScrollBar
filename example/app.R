@@ -16,6 +16,8 @@ choices=list(
     elephant=8
 )
 
+choices<-names(choices)
+
 ui<-fluidPage(
     h1('Test App'),
     jqScrollBar(inputId=inputId.1,  choices =choices, selected='elephant'),
@@ -50,7 +52,7 @@ server<-function(input,output,session){
         value<-unlist(strsplit(value,' '))
         #value<-mapply(function(i){paste0(i,"-rel")}, value, SIMPLIFY = F, USE.NAMES = T)
         tryCatch({
-        updateJqScrollBar(session, inputId.1, cmd='add',value=value )
+          updateJqScrollBar(session, inputId.1, cmd='add',value=value )
        },
         error=function(e){
             # do nothing , record error
